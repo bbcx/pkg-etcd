@@ -3,7 +3,7 @@
 # Contributor: codekoala <codekoala at gmail dot com>
 
 pkgname=etcd
-pkgver=2.3.1
+pkgver=3.0.4
 pkgrel=1
 pkgdesc='A highly-available key value store for shared configuration and service discovery.'
 arch=('x86_64' 'i686' 'armv6h' 'armv7h')
@@ -15,11 +15,13 @@ install="${pkgname}.install"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/coreos/${pkgname}/archive/v${pkgver}.tar.gz"
         "${pkgname}.service"
         "${pkgname}.conf")
-md5sums=('451c988edd824367b6063e2c4f734d3c'
+md5sums=('0200c9862218e7f336b2404ef24305a1'
          '1ccf13f8b80f10e21e92361a4dea1a44'
          'bd315606b36e519c578db34722b57622')
 
 build() {
+  export GOPATH=$(pwd)
+  go get github.com/coreos/etcd/cmd/etcdctl
   cd ${srcdir}/${pkgname}-${pkgver}
   ./build
 }
